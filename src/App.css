@@ -1,0 +1,50 @@
+@import '~antd/dist/antd.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+body{
+  margin: 0px;
+  overflow-x: hidden;
+  background-color: #181a20;
+}
+a{
+  color: white;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 2px;
+  background-color: black;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow:transparent;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #fde400; 
+  border-radius: 10px;
+}
+.bg-neutral-900{
+  background-color: #0b0e11;
+}
+.bg-neutral-700{
+  background-color: #101214;
+}
+.bg-neutral-800:hover{
+  background-color: #202931;
+}
+.ant-input {
+  @apply bg-gray-200;
+}
+.ant-input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  @apply text-gray-400;
+  opacity: 1; /* Firefox */
+}
+
+.ant-form-item-label > label {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 14px;
+}

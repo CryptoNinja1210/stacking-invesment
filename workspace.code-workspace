@@ -1,0 +1,29 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "..\\..\\ETCZUNKS\\etxzunks"
+		},
+		{
+			"path": "..\\..\\MGL\\MGL\\MGL_Exchange"
+		},
+		{
+			"path": "..\\..\\..\\workspace\\solana\\NFT"
+		},
+		{
+			"path": "..\\..\\ETCZUNKS\\walletconnect\\walletconnect-example-dapp"
+		},
+		{
+			"path": "..\\..\\ETCZUNKS\\walletconnect\\strike-staking"
+		},
+		{
+			"path": "..\\Meta_Backend"
+		},
+		{
+			"path": "..\\contract"
+		}
+	],
+	"settings": {}
+}
