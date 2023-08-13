@@ -8,10 +8,7 @@ import { useEffect } from 'react';
 function ContactUs() {
 
   useEffect(()=>{
-
   },[])
-
-
   return (
     <>
       <CustomParticles/>

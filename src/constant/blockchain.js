@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 const Config = {
     fullHost : 'https://api.trongrid.io',
     contract : 'TRxnQSZD5MDXF1uefv815QhqecTiDuWdGi',
@@ -5,8 +6,6 @@ const Config = {
     trxAddress : 'TNDFkUNA2TukukC1Moeqj61pAS53NFchGF',
     usdtAddress : 'TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t'
   };
-  
-  
   const  devConfig = {
     fullHost: 'https://api.nileex.io',
     contract: 'TMBoYhf5dxBvUwkDV9i6N8mmjHUhjPj5Co',

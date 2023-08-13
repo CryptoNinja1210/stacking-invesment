@@ -1,8 +1,7 @@
-import react from 'react';
-import { Row, Col, Button } from 'antd';
-import { GrMoney } from "react-icons/gr";
-import { GiPayMoney, GiReceiveMoney } from "react-icons/gi";
-import { FiClock } from "react-icons/fi";
+import { Row, Col } from 'antd';
+// import { GrMoney } from "react-icons/gr";
+// import { GiPayMoney, GiReceiveMoney } from "react-icons/gi";
+// import { FiClock } from "react-icons/fi";
 import Fade from 'react-reveal/Fade';
 
 function Howwork() {
@@ -14,18 +13,16 @@ function Howwork() {
                 <Col className='text-left'>
                 <Fade bottom >
                   <span >
-                    <p>1 -> Choose a Plan, Stake a deposit</p>
-                    <p>2 -> Receive 4% or 6% each day until the initial principle is returned</p>
-                    <p>3 -> After this point your stake is RISK free</p>
-                    <p>4 -> All profits going forwards are split 50/50</p>
-                    <p>5 -> 50% is automatically reinvested back to your balance to enable compounding</p>
-                    <p>6 -> 50% you can instantly withdraw</p>
-                    <p>7 -> Deposit Once Earn MetaTron Forever</p>
+                    <p>1 -{'>'} Choose a Plan, Stake a deposit</p>
+                    <p>2 -{'>'} Receive 4% or 6% each day until the initial principle is returned</p>
+                    <p>3 -{'>'} After this point your stake is RISK free</p>
+                    <p>4 -{'>'} All profits going forwards are split 50/50</p>
+                    <p>5 -{'>'} 50% is automatically reinvested back to your balance to enable compounding</p>
+                    <p>6 -{'>'} 50% you can instantly withdraw</p>
+                    <p>7 -{'>'} Deposit Once Earn MetaTron Forever</p>
                   </span>
-                
                 </Fade>
                 </Col>
-                
             </Row>
         </Col>
     </Row>

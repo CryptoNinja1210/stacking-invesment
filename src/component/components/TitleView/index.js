@@ -1,9 +1,9 @@
-import react from 'react';
+/* eslint-disable jsx-a11y/alt-text */
 import './index.css';
 import {Row, Col} from 'antd';
 import Bounce from 'react-reveal/Bounce';
 import { Link} from "react-router-dom";
-import {YellowButton, WhiteButton} from '../Buttons';
+import {YellowButton} from '../Buttons';
 function TitleView() {
   return (
     <Row>
@@ -11,7 +11,7 @@ function TitleView() {
           <Row className='flex items-center'>
             <Col xs={{span:22, offset:1}} md={{span:11, offset:1}} className=''>
               <Bounce left>
-                <p className='text-2xl lg:text-4xl text-white font-bold'>Welcome to MetaTron</p>             
+                <p className='text-2xl lg:text-4xl text-white font-bold'>Welcome to MetaTron</p>
                 <p className='text-lg lg:text-xl mt-2  text-white mb-4'>Deposit Once – Earn MetaTron Forever</p>
               </Bounce>
               <Bounce>
@@ -26,7 +26,6 @@ function TitleView() {
               <Col xs={{span:22, offset:1}} md={{span:18, offset:3}} lg={{span:10, offset:7}} >
                   <img src='/assets/img/picture2.png' className='w-full'/>
               </Col>
-              
             </Col>
           </Row>
         </Col>

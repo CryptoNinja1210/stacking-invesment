@@ -1,13 +1,14 @@
-import React, { useState, useEffect,useCallback } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import {
   getTronWeb,
   connectedWallet,
   walletCompare,
-  getMyBalance, 
-  getMyProfit, 
-  getMyActiveWithdraw, 
-  getMyWalletTRX, 
+  getMyBalance,
+  getMyProfit,
+  getMyActiveWithdraw,
+  getMyWalletTRX,
   getMyWalletUSDT,
   getInsuranceLock,
   depositTRX,
@@ -33,22 +34,22 @@ const MyInfoContextTemplate = {
     loading : Boolean,
     error : Boolean,
     checkedWallet : () => {},
-    setRefresh : (value)=>{},
-    setError : (value) => {},
-    depositTRX : (amount) => {},
-    depositUSDT : (amount) => {},
-    withdrawTRX : (amount) => {},
-    withdrawUSDT : (amount) => {},
-    addNotification : (message) => {},
+    setRefresh : ()=>{},
+    setError : () => {},
+    depositTRX : () => {},
+    depositUSDT : () => {},
+    withdrawTRX : () => {},
+    withdrawUSDT : () => {},
+    addNotification : () => {},
     connectWallet : () => {},
-    addWithdraw : (value) => {},
-    addDeposit : (value) => {},
+    addWithdraw : () => {},
+    addDeposit : () => {},
     addTransaction : () => {},
-    depositTronByGuest : (amount, address) => {},
-    depositUsdtByGuest : (amount, address) => {},
-    addRefferal : (amount) => {},
+    depositTronByGuest : () => {},
+    depositUsdtByGuest : () => {},
+    addRefferal : () => {},
     getInsuranceLock : () => {},
-    getTransactionInfo : (trx) => {}
+    getTransactionInfo : () => {}
 }
 const MyInfoContext = React.createContext(MyInfoContextTemplate);
 
@@ -58,11 +59,9 @@ const initNotification = [{
   "message": "Welcome!"
 }]
 const initWithdrawDate = [{
-  
-    "id": 0,
-    "userid": 0,
-    "date": "00/00/00 00:00:00"
-
+  "id": 0,
+  "userid": 0,
+  "date": "00/00/00 00:00:00"
 }]
 function MyInfoProvider(props) {
   const [myNotification, setNotification] = useState(initNotification);
@@ -79,128 +78,107 @@ function MyInfoProvider(props) {
   const [downloadState, setDownLoadState] = useState(0);
 
   window.addEventListener('message', (res) => {
-    if (res.data.message && res.data.message.action == "accountsChanged") {
+    if (res.data.message && res.data.message.action === "accountsChanged") {
       if (window.tronWeb && !loading) {
-          setRefresh(true);
+        setRefresh(true);
       }
-      
     }
-    if (res.data.message && res.data.message.action == "setNode") {
+    if (res.data.message && res.data.message.action === "setNode") {
       if (window.tronWeb && !loading) {
-          setRefresh(true);
+        setRefresh(true);
       }
-      
     }
   });
 
   const getMyNofification = async ()=>{
-    
     setAuthToken(localStorage.jwtToken);
     let user = JSON.parse(localStorage.userInfo);
       axios.get(SERVER_URL+`notification/my/${user.id}`).then(result=>{
-        
         if(result.data.response){
-          if(result.data.data)        
+          if(result.data.data)
             setNotification(result.data.data);
-        } 
+        }
         else{
           setError(true);
         }
       })
-      .catch(error=>{
+      .catch(()=>{
         setError(true);
       });
-    
   }
   const getWithdrawDate = async ()=>{
-    
     setAuthToken(localStorage.jwtToken);
     let user = JSON.parse(localStorage.userInfo);
     axios.get(SERVER_URL+`withdrawinfo/my/${user.id}`).then(result=>{
       if(result.data.response){
-        if(result.data.data)     
+        if(result.data.data)
           setWithdrawDate(result.data.data);
-      } 
+      }
       else{
         setError(true);
       }
     })
-    .catch(error=>{
+    .catch(()=>{
       setError(true);
-    });;
-            
-                
+    });
   }
   const getDepositDate = async ()=>{
-    
     setAuthToken(localStorage.jwtToken);
     let user = JSON.parse(localStorage.userInfo);
     axios.get(SERVER_URL+`depositinfo/my/${user.id}`).then(result=>{
       if(result.data.response){
-        if(result.data.data)        
+        if(result.data.data)
           setDepositDate(result.data.data);
-      } 
+      }
       else{
         setError(true);
       }
     })
-    .catch(error=>{
+    .catch(()=>{
       setError(true);
-    });;            
+    });
   }
 
   const getTransaction = async ()=>{
-    
     setAuthToken(localStorage.jwtToken);
     let user = JSON.parse(localStorage.userInfo);
     axios.get(SERVER_URL+`transaction/my/${user.id}`).then(result=>{
       if(result.data.response){
-        if(result.data.data)      
+        if(result.data.data)
           setTransaction(result.data.data);
-      } 
+      }
       else{
         setError(true);
       }
     })
-    .catch(error=>{
+    .catch(()=>{
       setError(true);
-    });;           
+    });
   }
 
   const addNotification = (message)=>{
-    
     setAuthToken(localStorage.jwtToken);
     let user = JSON.parse(localStorage.userInfo);
     return axios.post(SERVER_URL+`notification/create/${user.id}`, {
-            userid : user.id,
-            message : message})
-              .then(response=>{
-                  if(response.data.response){
-                    
-                  } 
-                  else{
-
-                  }
-                })
+      userid : user.id,
+      message : message})
+        .then(response=>{
+            if(response.data.response){ /* empty */ }
+            else{ /* empty */ }
+          })
   }
 
   const addWithdraw = (value)=>{
-    
     setAuthToken(localStorage.jwtToken);
     let user = JSON.parse(localStorage.userInfo);
     return axios.post(SERVER_URL+`withdrawinfo/create/${user.id}`, {
-            userid : user.id,
-            amount : value})
-              .then(response=>{
-                  if(response.data.response){
-                    
-                  } 
-                  else{
-                    
-                  }
-                })
+      userid : user.id,
+      amount : value})
+        .then(response=>{
+            if(response.data.response){ /* empty */ }
+            else{ /* empty */ }
+          })
   }
-
 
   const addRefferal = (amount) => {
     setAuthToken(localStorage.jwtToken);
@@ -210,51 +188,39 @@ function MyInfoProvider(props) {
             referralid : referral.referralid,
             amount : amount})
               .then(response=>{
-                  if(response.data.response){
-                    
-                  } 
-                  else{
-                    
-                  }
+                  if(response.data.response){ /* empty */ }
+                  else{ /* empty */ }
                 })
   }
 
   const addDeposit = (value)=>{
     console.log("testing",value);
-    
     setAuthToken(localStorage.jwtToken);
     let user = JSON.parse(localStorage.userInfo);
     return axios.post(SERVER_URL+`depositinfo/create/${user.id}`, {
-            userid : user.id,
-            amount : value})
-              .then(response=>{
-                  if(response.data.response){
-                    
-                  } 
-                  else{
-                    
-                  }
-                })
+      userid : user.id,
+      amount : value})
+        .then(response=>{
+            if(response.data.response){ /* empty */ }
+            else{ /* empty */ }
+          })
   }
 
   const addTransaction = (data)=>{
-    
     setAuthToken(localStorage.jwtToken);
     let user = JSON.parse(localStorage.userInfo);
     return axios.post(SERVER_URL+`transaction/create/${user.id}`, {
-            userid : user.id,
-            message : data.message,
-            transaction : data.transaction})
-              .then(response=>{
-                  if(response.data.response){
-                    getTransaction();
-                  } 
-                  else{
-                    
-                  }
-                })
+      userid : user.id,
+      message : data.message,
+      transaction : data.transaction})
+        .then(response=>{
+            if(response.data.response){
+              getTransaction();
+            }
+            else{ /* empty */ }
+          })
   }
-  
+
   useEffect(()=>{
     if(refresh)
       initeData();
@@ -268,7 +234,6 @@ function MyInfoProvider(props) {
       return false;
     else
       return connected;
-     
   }
 
   const delay = (time) => {
@@ -299,21 +264,20 @@ function MyInfoProvider(props) {
     if(localStorage.jwtToken){
       /////////////////////get my notification or else retrun false////////////////
       getMyNofification();
-      
+
       ////////////////////get my withdraw info or else return false/////////////////
       getWithdrawDate();
-      
+
     //////////////////////get deposit info or else return false///////////////////
       getDepositDate();
-      
+
     //////////////////////get my transaction info or else return false/////////////
 
       getTransaction();
-      
+
     }
     else
       setError(true);
-    
 
     getMyBalance().then(balance=>{
       console.log("balance", balance);
@@ -323,12 +287,10 @@ function MyInfoProvider(props) {
     });
 
     getMyProfit().then(profit=>{
-      
       if(profit)
       setProfit(parseInt(profit)/1000000);
       setDownLoadState(prev=>prev+1);
     });
-    
 
     getMyActiveWithdraw().then(activeWithdraw=>{
       if(activeWithdraw)
@@ -342,51 +304,49 @@ function MyInfoProvider(props) {
     setDownLoadState(prev=>prev+1);
 
     setRefresh(false);
-    
   }
 
   useEffect(()=>{
-    if(downloadState == 4){
+    if(downloadState === 4){
       setLoading(false);
       setDownLoadState(0);
     }
   },[downloadState])
   return(
-          <MyInfoContext.Provider value={{
-            myNotification,
-            myWithdrawDate,
-            myDepositDate,
-            myTransaction,
-            myBalance,
-            myProfit,
-            myActiveBalance,
-            walletBalance,
-            refresh,
-            loading,
-            error,
-            getRole,
-            checkedWallet,
-            setError,
-            setRefresh,
-            depositTRX,
-            depositUSDT,
-            withdrawTRX,
-            withdrawUSDT,
-            connectWallet,
-            addNotification,
-            addWithdraw,
-            addDeposit,
-            addTransaction,
-            depositTronByGuest,
-            depositUsdtByGuest,
-            addRefferal,
-            getInsuranceLock,
-            getTransactionInfo
-          }}>
-            {props.children}
-          </MyInfoContext.Provider>
-
-    )
+    <MyInfoContext.Provider value={{
+      myNotification,
+      myWithdrawDate,
+      myDepositDate,
+      myTransaction,
+      myBalance,
+      myProfit,
+      myActiveBalance,
+      walletBalance,
+      refresh,
+      loading,
+      error,
+      getRole,
+      checkedWallet,
+      setError,
+      setRefresh,
+      depositTRX,
+      depositUSDT,
+      withdrawTRX,
+      withdrawUSDT,
+      connectWallet,
+      addNotification,
+      addWithdraw,
+      addDeposit,
+      addTransaction,
+      depositTronByGuest,
+      depositUsdtByGuest,
+      addRefferal,
+      getInsuranceLock,
+      getTransactionInfo
+    }}>
+      {props}
+    </MyInfoContext.Provider>
+  )
 }
 
 export {MyInfoContext};

@@ -1,10 +1,11 @@
-import react, {useState, useContext} from 'react';
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import {useState, useContext} from 'react';
 import axios from 'axios';
 import './index.css';
-import { Row, Col, Button, Form, Input, Checkbox } from 'antd';
-import { AiFillCheckCircle, AiFillCalculator } from "react-icons/ai";
-import { Routes, Route, Link, Navigate } from "react-router-dom";
-import { MailOutlined ,SafetyOutlined,LockOutlined,TeamOutlined ,EyeTwoTone,EyeInvisibleOutlined} from '@ant-design/icons';
+import { Row, Col, Form, Input, Checkbox } from 'antd';
+// import { AiFillCheckCircle, AiFillCalculator } from "react-icons/ai";
+import { Link, Navigate } from "react-router-dom";
+import { MailOutlined ,SafetyOutlined,LockOutlined,TeamOutlined } from '@ant-design/icons';
 import {SERVER_URL} from '../../../constant/env'
 import openNotification from "../notification";
 import {MyInfoContext} from '../../Provider/myInfoProvider';
@@ -35,12 +36,11 @@ function RegisterView() {
             openNotification(1.5,'Success',response.data.message,true,null)
           }
           else{
-            openNotification(4.5,'Fail!',"E-mail not verified!",false,null)       
+            openNotification(4.5,'Fail!',"E-mail not verified!",false,null)
           }
         });
       }
       const register=()=>{
-        
         let connected = data.connectWallet();
         if(!connected)
         {
@@ -50,7 +50,7 @@ function RegisterView() {
 
         console.log("tronweb", connected.defaultAddress.base58);
         form.validateFields()
-         .then((values) => {
+         .then(() => {
            console.log("validateFile")
            axios.post(SERVER_URL+"users/signup",{
              email:email,
@@ -66,8 +66,7 @@ function RegisterView() {
                 openNotification(1.5,'Success',"Account successfully created!",true,()=>setRedirect(true) );
                 localStorage.setItem("userInfo", JSON.stringify(response.data.data.userInfo));
                 localStorage.setItem("jwtToken", JSON.stringify(response.data.data.token));
-
-             } 
+             }
              else{
                 openNotification(4.5,'Fail!',response.data.message,false);
              }
@@ -100,24 +99,23 @@ function RegisterView() {
                                             validateTrigger = "onBlur"
                                             name={[ 'email']}
                                             rules={[{type: 'email',message:'Invalid Email Address'},{ required: true, message: 'Please input your E-mail!' },{max:50,message:'Please input less than 50 characters'}]}>
-                                        <Input  
+                                        <Input
                                             size="large"
-                                            placeholder= {"E-mail address"} 
-                                            prefix={<MailOutlined className="m-2"/> } 
+                                            placeholder= {"E-mail address"}
+                                            prefix={<MailOutlined className="m-2"/> }
                                             className=" rounded-lg  bg-gray-200 text-black "
                                             onChange={(e)=>setEmail(e.target.value)}/>
                                         </Form.Item>
                                         <Form.Item
-                                            
                                             name="Verification"
                                             rules={[
                                                 { required: true, message: 'Please input your E-mail Verification Code!' },
                                                 {max:4,message:'Please input less than 4 characters'}]}>
                                         <Input
-                                            size="large" 
-                                            placeholder={'E-mail verification code'} 
+                                            size="large"
+                                            placeholder={'E-mail verification code'}
                                             prefix={<SafetyOutlined className="m-2"/>}
-                                            suffix={<a onClick={()=>hasErrors(form.getFieldsError())}  className="bg-gray-800 text-md  text-white  rounded-xl py-1 px-4">{"Send"}</a>} 
+                                            suffix={<a onClick={()=>hasErrors(form.getFieldsError())}  className="bg-gray-800 text-md  text-white  rounded-xl py-1 px-4">{"Send"}</a>}
                                             className="rounded-lg  bg-gray-200"
                                             onChange={(e)=>setVerificationCode(e.target.value)}/>
                                         </Form.Item>
@@ -130,8 +128,8 @@ function RegisterView() {
                                             {min:8,message:'Please input more than 8 characters'}]}
                                         >
                                         <Input.Password
-                                            size="large" 
-                                            placeholder={"enter password here"} 
+                                            size="large"
+                                            placeholder={"enter password here"}
                                             prefix={<LockOutlined className="m-2"/> }
                                             className="rounded-lg  bg-gray-200"
                                             onChange={(e)=>setPassword(e.target.value)}/>
@@ -153,10 +151,10 @@ function RegisterView() {
                                                 }),
                                             ]}
                                         >
-                                        <Input.Password 
+                                        <Input.Password
                                             size="large"
-                                            placeholder={"confirm password"} 
-                                            prefix={<LockOutlined className="m-2"/>} 
+                                            placeholder={"confirm password"}
+                                            prefix={<LockOutlined className="m-2"/>}
                                             className="rounded-lg  bg-gray-200"/>
                                         </Form.Item>
 
@@ -165,9 +163,9 @@ function RegisterView() {
                                             rules={[{max:10}
                                             ]}>
                                             <Input
-                                                size="large" 
-                                                placeholder={"firstname"} 
-                                                prefix={<TeamOutlined className="m-2"/>} 
+                                                size="large"
+                                                placeholder={"firstname"}
+                                                prefix={<TeamOutlined className="m-2"/>}
                                                 className="rounded-lg  bg-gray-200"
                                                 onChange={(e)=>setFirstName(e.target.value)}/>
                                         </Form.Item>
@@ -177,15 +175,15 @@ function RegisterView() {
                                             rules={[{max:10}
                                             ]}>
                                             <Input
-                                                size="large" 
-                                                placeholder={"lastname"} 
-                                                prefix={<TeamOutlined className="m-2"/>} 
+                                                size="large"
+                                                placeholder={"lastname"}
+                                                prefix={<TeamOutlined className="m-2"/>}
                                                 className="rounded-lg  bg-gray-200"
                                                 onChange={(e)=>setLastName(e.target.value)}/>
                                         </Form.Item>
 
-                                        <Form.Item 
-                                            name="check" 
+                                        <Form.Item
+                                            name="check"
                                             valuePropName="checked"
                                             rules={[
                                                 {
@@ -197,9 +195,9 @@ function RegisterView() {
                                         </Form.Item>
                                         {/*<span className={`${message.style} text-lg`}>{message.val==1?<FcOk className="inline mr-2"/>:message.val==0?<FcCancel className="inline mr-2"/>:null}{message.data}</span>*/}
                                         <Form.Item className="mt-2">
-                                        <button  
-                                            type="submit" 
-                                            onClick={register} 
+                                        <button
+                                            type="submit"
+                                            onClick={register}
                                             className="w-full bg-yellow-300 text-lg font-bold text-black  rounded-lg py-2"
                                             >
                                             {"Create Account"}
@@ -211,13 +209,10 @@ function RegisterView() {
                                     </div>
                                 </Col>
                             </Row>
-                    
-                        
                         </Col>
                     </Row>
             }
         </>
-    
   );
 }
 

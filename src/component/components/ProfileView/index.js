@@ -1,10 +1,11 @@
-import react, {useEffect, useState} from 'react';
+/* eslint-disable react/prop-types */
+import {useEffect, useState} from 'react';
 import axios from 'axios';
 import './index.css';
-import { Row, Col, Button, Form, Input, Checkbox } from 'antd';
-import { AiFillCheckCircle, AiFillCalculator } from "react-icons/ai";
-import { Routes, Route, Link, Navigate } from "react-router-dom";
-import { MailOutlined ,SafetyOutlined,LockOutlined,TeamOutlined ,EyeTwoTone,EyeInvisibleOutlined} from '@ant-design/icons';
+import { Row, Col, Form, Input } from 'antd';
+// import { AiFillCheckCircle, AiFillCalculator } from "react-icons/ai";
+// import { Routes, Route, Link, Navigate } from "react-router-dom";
+import { MailOutlined ,LockOutlined,TeamOutlined } from '@ant-design/icons';
 import {SERVER_URL} from '../../../constant/env'
 import openNotification from "../notification";
 import setAuthToken from '../../../utils/setAuthToken';
@@ -23,18 +24,17 @@ function ProfileView(props) {
         setFirstName(userInfo.firstname);
         setLastName(userInfo.lastname);
         form.setFieldsValue({email:userInfo.email,firstname:userInfo.firstname, lastname:userInfo.lastname})
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
-    function hasErrors(fieldsError) {
-        console.log("errer",fieldsError[0].errors.length)
-        if(fieldsError[0].errors.length>0)
-          return false;
-      // return Object.keys(fieldsError).some(field => fieldsError[field]);
-    }
-    
+    // function hasErrors(fieldsError) {
+    //     console.log("errer",fieldsError[0].errors.length)
+    //     if(fieldsError[0].errors.length>0)
+    //       return false;
+    //   // return Object.keys(fieldsError).some(field => fieldsError[field]);
+    // }
       const update=()=>{
-    
         form.validateFields()
-         .then((values) => {
+         .then(() => {
             setAuthToken(localStorage.jwtToken);
             let user = JSON.parse(localStorage.userInfo);
             axios.patch(SERVER_URL+`users/update/${user.id}`,{
@@ -49,7 +49,7 @@ function ProfileView(props) {
                     openNotification(4.5,'Success',"Account successfully created!",true, ()=>{props.setRefresh();});
                     localStorage.setItem("userInfo", JSON.stringify(response.data.data.userInfo));
                     localStorage.setItem("jwtToken", JSON.stringify(response.data.data.token));
-                } 
+                }
                 else{
                     openNotification(4.5,'Fail!',response.data.message,false);
                 }
@@ -73,21 +73,18 @@ function ProfileView(props) {
                             autoComplete="off"
                             onValuesChange={()=>{}}
                             validateTrigger = "onSubmit"
-    
                         >
                             <Form.Item
                                 validateTrigger = "onBlur"
                                 name= 'email'
                                 rules={[{type: 'email'}]}>
-                            <Input  
+                            <Input
                                 size="large"
-                                placeholder= {"E-mail address"} 
-                                prefix={<MailOutlined className="m-2"/> } 
+                                placeholder= {"E-mail address"}
+                                prefix={<MailOutlined className="m-2"/> }
                                 className=" rounded-lg  bg-gray-200 text-black"
                                />
-                            
                             </Form.Item>
-    
                             <Form.Item
                             validateTrigger = "onBlur"
                             name="oldpassword"
@@ -96,13 +93,12 @@ function ProfileView(props) {
                                 {min:8,message:'Please input more than 8 characters'}]}
                             >
                             <Input.Password
-                                size="large" 
-                                placeholder={"enter password here"} 
+                                size="large"
+                                placeholder={"enter password here"}
                                 prefix={<LockOutlined className="m-2"/> }
                                 className="rounded-lg  bg-gray-200"
                                 onChange={(e)=>setOldPassword(e.target.value)}/>
                             </Form.Item>
-    
                             <Form.Item
                             validateTrigger = "onBlur"
                             name="password"
@@ -111,13 +107,12 @@ function ProfileView(props) {
                                 {min:8,message:'Please input more than 8 characters'}]}
                             >
                             <Input.Password
-                                size="large" 
-                                placeholder={"enter password here"} 
+                                size="large"
+                                placeholder={"enter password here"}
                                 prefix={<LockOutlined className="m-2"/> }
                                 className="rounded-lg  bg-gray-200"
                                 onChange={(e)=>setPassword(e.target.value)}/>
                             </Form.Item>
-    
                             <Form.Item
                                 validateTrigger = "onChange"
                                 name="confirm"
@@ -134,44 +129,41 @@ function ProfileView(props) {
                                     }),
                                 ]}
                             >
-                            <Input.Password 
+                            <Input.Password
                                 size="large"
-                                placeholder={"confirm password"} 
-                                prefix={<LockOutlined className="m-2"/>} 
+                                placeholder={"confirm password"}
+                                prefix={<LockOutlined className="m-2"/>}
                                 className="rounded-lg  bg-gray-200"/>
                             </Form.Item>
-    
                             <Form.Item
                                 name="firstname"
                                 rules={[{max:10}
                                 ]}>
                                 <Input
-                                    size="large" 
-                                    placeholder={"firstname"} 
-                                    prefix={<TeamOutlined className="m-2"/>} 
+                                    size="large"
+                                    placeholder={"firstname"}
+                                    prefix={<TeamOutlined className="m-2"/>}
                                     className="rounded-lg  bg-gray-200"
                                     value={firstname}
                                     onChange={(e)=>setFirstName(e.target.value)}/>
                             </Form.Item>
-    
                             <Form.Item
                                 name="lastname"
                                 rules={[{max:10}
                                 ]}>
                                 <Input
-                                    size="large" 
-                                    placeholder={"lastname"} 
-                                    prefix={<TeamOutlined className="m-2"/>} 
+                                    size="large"
+                                    placeholder={"lastname"}
+                                    prefix={<TeamOutlined className="m-2"/>}
                                     className="rounded-lg  bg-gray-200"
                                     value={lastname}
                                     onChange={(e)=>setLastName(e.target.value)}/>
                             </Form.Item>
-    
                             {/*<span className={`${message.style} text-lg`}>{message.val==1?<FcOk className="inline mr-2"/>:message.val==0?<FcCancel className="inline mr-2"/>:null}{message.data}</span>*/}
                             <Form.Item className="mt-2">
-                            <button  
-                                type="submit" 
-                                onClick={update} 
+                            <button
+                                type="submit"
+                                onClick={update}
                                 className="w-full bg-yellow-300 text-lg font-bold text-black  rounded-lg py-2"
                                 >
                                 {"Update Account"}
@@ -180,14 +172,10 @@ function ProfileView(props) {
                         </Form>
                     </Col>
                 </Row>
-           
-               
             </Col>
         </Row>
-                
         }
         </>
-    
   );
 }
 

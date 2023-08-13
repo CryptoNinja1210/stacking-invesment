@@ -1,4 +1,6 @@
-import react, {useState} from 'react';
+/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import {useState} from 'react';
 import { Link} from "react-router-dom";
 import './index.css';
 import { Row, Col} from 'antd';
@@ -29,23 +31,19 @@ const FQAs = [
     {title : "How long will the platform last?", content : "The aim is for the platform to last a minimum of 5 years."},
 ]
 function FQAsView() {
-
     const [confuseFAQ1, setFAQ1] = useState(false);
     const [confuseFAQ2, setFAQ2] = useState(false);
 
-   
     return (
-        
         <Row className='min-h-screen'>
             <Col span={24}>
                 <Row>
                     <Col span={24} className='text-center mt-16 bg-yellow-300 p-4'>
-                        <p className='text-2xl md:text-3xl'>FAQ's</p>
+                        <p className='text-2xl md:text-3xl'>FAQ`s</p>
                     </Col>
 
                     <Col span={22} offset={1} className='bg-neutral-900 mt-8 text-white p-8'>
                         <Row className='mb-4 cursor-pointer flex justify-between items-center'onClick = {()=>setFAQ1(!confuseFAQ1)}>
-                            
                             <Col span={21}>
                                 <a className='text-base md:text-xl text-yellow-200 hover:text-yellow-100 my-4 '>How To Join?</a>
                             </Col>
@@ -53,14 +51,11 @@ function FQAsView() {
                                 {
                                     confuseFAQ1 ?
                                         <BsArrowUpCircle  size = {30} className='inline text-yellow-200'/>
-                                    : 
+                                    :
                                         <BsArrowDownCircle  size = {30} className='inline text-yellow-200'/>
                                 }
                             </Col>
-                            
-                            
                         </Row>
-                        
                         {
                             confuseFAQ1 &&
                             <Fade >
@@ -74,7 +69,6 @@ function FQAsView() {
 
                     <Col span={22} offset={1} className='bg-neutral-900 mt-8 text-white p-8'>
                         <Row className='mb-4 cursor-pointer flex justify-between items-center'onClick = {()=>setFAQ2(!confuseFAQ2)}>
-                            
                             <Col span={21}>
                                 <a className='text-base md:text-xl text-yellow-200 hover:text-yellow-100 my-4 '>I can’t log on</a>
                             </Col>
@@ -82,14 +76,11 @@ function FQAsView() {
                                 {
                                     confuseFAQ2 ?
                                         <BsArrowUpCircle  size = {30} className='inline text-yellow-200'/>
-                                    : 
+                                    :
                                         <BsArrowDownCircle  size = {30} className='inline text-yellow-200'/>
                                 }
                             </Col>
-                            
-                            
                         </Row>
-                        
                         {
                             confuseFAQ2 &&
                             <Fade >
@@ -105,13 +96,10 @@ function FQAsView() {
                         FQAs.map((item,idx)=>(
                             <FQAsElement key = {idx} title = {item.title} content = {item.content}/>
                         ))
-                    }  
+                    }
                 </Row>
-            
             </Col>
         </Row>
-        
-    
   );
 }
 

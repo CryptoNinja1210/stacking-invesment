@@ -1,13 +1,12 @@
-import react, {useState} from 'react';
-import axios from 'axios';
+/* eslint-disable react/prop-types */
+// import react, {useState} from 'react';
+// import axios from 'axios';
 import './index.css';
-import { Row, Col, Button, Form, Input, Checkbox } from 'antd';
-import { AiFillCheckCircle, AiFillCalculator } from "react-icons/ai";
+import { Row, Col } from 'antd';
+// import { AiFillCheckCircle, AiFillCalculator } from "react-icons/ai";
 
 function TransactionView(props) {
-   
     return (
-        
         <Row className='min-h-screen'>
             <Col span={24}>
                 <Row>
@@ -27,7 +26,7 @@ function TransactionView(props) {
                             </Col>
                         </Row>
                         {
-                            props.mytransactions ? 
+                            props.mytransactions ?
                             props.mytransactions.map((item, idx)=>(
                                 <Row key={idx} className='mt-2'>
                                     <Col span={4} >
@@ -37,20 +36,17 @@ function TransactionView(props) {
                                         <p >{item.message}</p>
                                     </Col>
                                     <Col span={12}>
-                                        <a target='_blank' href={`https://nile.tronscan.org/#/transaction/${item.transaction}`}>{item.transaction}</a>
+                                        <a target='_blank' href={`https://nile.tronscan.org/#/transaction/${item.transaction}`} rel="noreferrer">{item.transaction}</a>
                                     </Col>
-                                </Row> 
+                                </Row>
                             ))
                             :
                             "none transactions"
                         }
                     </Col>
                 </Row>
-            
             </Col>
         </Row>
-        
-    
   );
 }
 

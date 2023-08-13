@@ -6,11 +6,9 @@ import CustomParticles from '../../components/CustomParticles';
 import { useEffect } from 'react';
 
 function Login() {
-
   useEffect(()=>{
 
   },[])
-
 
   return (
     <>

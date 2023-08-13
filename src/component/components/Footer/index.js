@@ -1,4 +1,5 @@
-import react from 'react';
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable jsx-a11y/alt-text */
 import './index.css';
 import { Row, Col, Popover } from 'antd';
 import { FaAddressBook, FaPhoneAlt, FaTwitter, FaDiscord, FaTelegramPlane, } from "react-icons/fa";
@@ -28,14 +29,14 @@ function Footer() {
                     <Popover content = {email}><a className="text-center flex flex-col sm:flex-row justify-center items-center"><MdEmail size={25} className='inline-block mr-2'/>email</a></Popover>
                 </Col>
                 <Col xs={{span:24}} sm={{span:6}} className='flex items-center justify-center sm:justify-end p-2'>
-                    <a className="foot-button ml-3" target='_blank' href='https://t.me/metatron_official'><FaTelegramPlane size={24} className="footer-item"/></a>
+                    <a className="foot-button ml-3" target='_blank' href='https://t.me/metatron_official' rel="noreferrer"><FaTelegramPlane size={24} className="footer-item"/></a>
                     <a className="foot-button ml-3"  href='/#'><FaTwitter size={24} className="footer-item"/></a>
                     <a className="foot-button ml-3"  href='/#'><FaDiscord size={24} className="footer-item"/></a>
                 </Col>
             </Row>
             <Row className='mt-2 flex justify-between'>
                 <a>© 2022. MetaTron. All Rights Reserved.</a>
-                <a target='_blank' href='https://tronscan.org/#/contract/TRxnQSZD5MDXF1uefv815QhqecTiDuWdGi/transactions'>Contract Address</a>
+                <a target='_blank' href='https://tronscan.org/#/contract/TRxnQSZD5MDXF1uefv815QhqecTiDuWdGi/transactions' rel="noreferrer">Contract Address</a>
             </Row>
         </Col>
     </Row>

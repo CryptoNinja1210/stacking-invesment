@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, } from "react-router-dom";
 import './App.css';
 import Home from './component/page/Home';
 import Main from './component/page/Main';
@@ -12,12 +12,8 @@ import Steps from './component/page/Steps';
 import ContactUs from './component/page/ContactUs';
 
 function App() {
-
-
-
   return (
-    <BrowserRouter>
-    
+    <Router>
      <Routes>
         <Route path="/" element={<Home />} >
           <Route path=":userid/:wallet/:base58/" element={<Home />} />
@@ -31,10 +27,8 @@ function App() {
         <Route path="/fqas" element={<FQAs />} />
         <Route path="/steps/:id" element={<Steps />} />
         <Route path="/contactus" element={<ContactUs />} />
-
-
       </Routes>
-    </BrowserRouter>  
+    </Router>
   )
 }
 

@@ -1,13 +1,10 @@
-import react, {useState} from 'react';
-import axios from 'axios';
 import './index.css';
 import { Row, Col, Typography } from 'antd';
 const { Paragraph } = Typography;
 
+// eslint-disable-next-line no-unused-vars
 function AffiliateView(props) {
-   
     return (
-        
         <Row className='min-h-screen'>
             <Col span={24}>
                 <Row>
@@ -15,7 +12,6 @@ function AffiliateView(props) {
                         <p className=' text-3xl text-white'>Affiliate</p>
                     </Col>
                     <Col span={22} offset={1} className=' text-white p-4 rounded-lg bg-neutral-900 border-yellow-300 border'>
-                        
                       <Row >
                           <Col span={24} className='pb-4'>
                             <p className='text-lg mb-8 ' >Meta Tron will reward members to those who refer the platform, even if they decide not to deposit themselves.</p>
@@ -31,11 +27,8 @@ function AffiliateView(props) {
                       </Row>
                     </Col>
                 </Row>
-            
             </Col>
         </Row>
-        
-    
   );
 }
 

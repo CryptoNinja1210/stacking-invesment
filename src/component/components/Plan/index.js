@@ -1,16 +1,18 @@
-import react, { useState } from 'react';
+/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable react/prop-types */
+import { useState } from 'react';
 import './index.css';
-import { Row, Col, Button } from 'antd';
+import { Row, Col } from 'antd';
 import { AiFillCheckCircle, AiFillCalculator } from "react-icons/ai";
 
-const users = [
-    {name:'goosep', deposit:'$24235.72'},
-    {name:'goosep', deposit:'$24235.72'},
-    {name:'goosep', deposit:'$24235.72'},
-    {name:'goosep', deposit:'$24235.72'},
-    {name:'goosep', deposit:'$24235.72'},
-    {name:'goosep', deposit:'$24235.72'}
-]
+// const users = [
+//     {name:'goosep', deposit:'$24235.72'},
+//     {name:'goosep', deposit:'$24235.72'},
+//     {name:'goosep', deposit:'$24235.72'},
+//     {name:'goosep', deposit:'$24235.72'},
+//     {name:'goosep', deposit:'$24235.72'},
+//     {name:'goosep', deposit:'$24235.72'}
+// ]
 
 function Plan(props) {
 
@@ -29,19 +31,18 @@ function Plan(props) {
       if(profit >= oldDeposit){
         if(deposit >= 5000){
           profit += deposit * 3 / 100;
-          deposit += deposit * 3 / 100;
-        }  
+          deposit = deposit * 3 / 100;
+        }
         else
         {
           profit += deposit * 2 / 100;
           deposit += deposit * 2 / 100;
         }
-          
       }
       else{
         if(deposit >= 5000){
           profit += deposit * 6 / 100;
-        }  
+        }
         else
         {
           profit += deposit * 4 / 100;
@@ -49,13 +50,13 @@ function Plan(props) {
 
       }
 
-      if(i==0)
+      if(i===0)
         setDaily(profit.toFixed(5));
-      if(i==6)
+      if(i===6)
         setWeekly(profit.toFixed(5));
-      if(i==30)
+      if(i===30)
         setMonthly(profit.toFixed(5));
-      if(i==364)
+      if(i===364)
         setYearly(profit.toFixed(5));
 
     }
@@ -75,7 +76,6 @@ function Plan(props) {
       setAmount(e.target.value);
       calulatePlan(e.target.value);
     }
-      
   }
   return (
     <Row ref={props.plan}>
@@ -104,7 +104,6 @@ function Plan(props) {
                             <span>Max Deposit</span>
                             <span className='ml-4 text-yellow-300'>$4999</span>
                             </Col>
-                            
                           </Row>
                         </Col>
                     </Row>
@@ -132,7 +131,6 @@ function Plan(props) {
                             <span>Max Deposit</span>
                             <span className='ml-4 text-yellow-300'>infinite</span>
                             </Col>
-                            
                           </Row>
                         </Col>
                     </Row>
@@ -148,7 +146,6 @@ function Plan(props) {
                   <input type='text' value = {amount} onChange={amountChange} placeholder='Enter Amount' className='text-white p-2 text-lg h-full w-full bg-transparent outline rounded-lg border  border-yellow-300 focus:border-white'/>
                 </Col>
                 <Col xs={{span:24}} md={{span:15}} className='flex flex-wrap items-center justify-around'>
-                  
                     <Col xs={{span:12}} md={{span:5}} className='mt-2  bg-yellow-300 px-4 py-1 rounded-lg mx-2'>
                       <p>Daily Profit</p>
                       <p className=' font-bold'>{daily}</p>
@@ -168,7 +165,6 @@ function Plan(props) {
                       <p>Yearly Profit</p>
                       <p className=' font-bold'>{yearly}</p>
                     </Col>
-                 
                 </Col>
             </Row>
         </Col>

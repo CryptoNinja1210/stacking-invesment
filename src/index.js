@@ -2,17 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import BlockchainProvider from './component/Provider/blockchainProvider';
-import MyInfoProvider from './component/Provider/myInfoProvider';
+// import BlockchainProvider from './component/Provider/blockchainProvider';
+// import MyInfoProvider from './component/Provider/myInfoProvider';
 
 ReactDOM.render(
   <React.StrictMode>
-    <BlockchainProvider>
-      <MyInfoProvider>
+    {/* <BlockchainProvider>
+      <MyInfoProvider> */}
         <App />
-      </MyInfoProvider>
-    </BlockchainProvider>
-    
+      {/* </MyInfoProvider>
+    </BlockchainProvider> */}
   </React.StrictMode>,
   document.getElementById('root')
 );

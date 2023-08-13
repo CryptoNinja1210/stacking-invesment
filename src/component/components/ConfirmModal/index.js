@@ -1,11 +1,12 @@
-import { useState,useEffect } from 'react';
-import { Button, Row, Col } from 'antd';
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable react/prop-types */
+import { useEffect } from 'react';
+import {  Row, Col } from 'antd';
 import {AiFillCloseCircle} from "react-icons/ai";
 import './index.css'
 function ConfirmModal(props) {
 
     useEffect(()=>{
-        
     },[])
 
     return (
@@ -26,8 +27,6 @@ function ConfirmModal(props) {
                 </Row>
             }
         </>
-        
-
     );
 }
 

@@ -1,10 +1,10 @@
-import react, {useState, useContext} from 'react';
+import {useState, useContext} from 'react';
 import axios from 'axios';
 import './index.css';
-import { Row, Col, Button, Form, Input, Checkbox } from 'antd';
-import { AiFillCheckCircle, AiFillCalculator } from "react-icons/ai";
-import { Routes, Route, Link, Navigate } from "react-router-dom";
-import { MailOutlined ,SafetyOutlined,LockOutlined,TeamOutlined ,EyeTwoTone,EyeInvisibleOutlined} from '@ant-design/icons';
+import { Row, Col, Form, Input } from 'antd';
+// import { AiFillCheckCircle, AiFillCalculator } from "react-icons/ai";
+import { Link, Navigate } from "react-router-dom";
+import { MailOutlined ,LockOutlined } from '@ant-design/icons';
 import {SERVER_URL} from '../../../constant/env'
 import openNotification from "../notification";
 import {MyInfoContext} from '../../Provider/myInfoProvider';
@@ -24,20 +24,16 @@ function LoginView() {
 
             return ;
         }
-        
         form.validateFields()
-            .then((values) => {
+            .then(() => {
                 axios.post(SERVER_URL+"users/login",{
                 email:email,
                 password:password
                 }).then(response=>{
                 if(response.data.response){
-                    
                     // setMessage({style:'text-green-500',val:true,data:"Successful! Welcome to our site."});
                     localStorage.setItem("userInfo", JSON.stringify(response.data.data.userInfo));
                     localStorage.setItem("jwtToken", JSON.stringify(response.data.data.token));
-
-                    
                     openNotification(1.5,'Successful','Welcome to MetaTron.', true,()=>setRedirect(true));
                 }
                 else{
@@ -45,7 +41,6 @@ function LoginView() {
                 }
             })
         })
-                            
       }
     return (
         <>
@@ -53,7 +48,6 @@ function LoginView() {
                 redirect?
                     <Navigate to="/main" />
                 :
-
                 <Row className='min-h-screen'>
                     <Col span={24}>
                     <Row>
@@ -71,14 +65,13 @@ function LoginView() {
                                     <Form.Item
                                         name={[ 'email']}
                                         rules={[{type: 'email',message:'Please enter a correct email address'},{ required: true, message: 'Please input your E-mail!' },{max:50,message:'Please input less than 50 characters'}]}>
-                                        <Input 
-                                            size="large" 
-                                            placeholder={'E-mail address'} 
-                                            prefix={<MailOutlined className="m-2"/> } 
+                                        <Input
+                                            size="large"
+                                            placeholder={'E-mail address'}
+                                            prefix={<MailOutlined className="m-2"/> }
                                             className=" rounded-lg bg-gray-200 text-black "
                                             onChange={(e)=>setEmail(e.target.value)}/>
                                         </Form.Item>
-                                    
                                     <Form.Item
                                         validateTrigger = "onBlur"
                                         name="password"
@@ -86,15 +79,13 @@ function LoginView() {
                                             { required: true, message: 'Please input your password!' },
                                             {min:8,message:'Please input more than 8 characters'}]}
                                         >
-                                        <Input.Password 
-                                            size="large" 
-                                            placeholder={"enter password here"} 
+                                        <Input.Password
+                                            size="large"
+                                            placeholder={"enter password here"}
                                             prefix={<LockOutlined className="m-2"/> }
                                             className="rounded-lg  bg-gray-200"
                                             onChange={(e)=>setPassword(e.target.value)}/>
                                     </Form.Item>
-
-                                
                                     {/*<span className={`${message.style} text-lg`}>{message.val==1?<FcOk className="inline mr-2"/>:message.val==0?<FcCancel className="inline mr-2"/>:null}{message.data}</span>*/}
                                     <Form.Item className="mt-2">
                                     <button  onClick={login} type="submit" className="w-full bg-yellow-300 text-lg font-bold text-black  rounded-lg py-2">
@@ -109,18 +100,12 @@ function LoginView() {
                                 </div>
                                 </Col>
                             </Row>
-                    
-                        
-                        </Col> 
+                        </Col>
                     </Row>
                     </Col>
-                
-                
                 </Row>
             }
         </>
-        
-    
   );
 }
 

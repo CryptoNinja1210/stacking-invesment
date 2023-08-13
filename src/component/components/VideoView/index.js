@@ -1,8 +1,8 @@
-import react, { useRef, useEffect } from 'react';
-import { Row, Col, Button } from 'antd';
-import { GrMoney } from "react-icons/gr";
-import { GiPayMoney, GiReceiveMoney } from "react-icons/gi";
-import { FiClock } from "react-icons/fi";
+import { useRef, useEffect } from 'react';
+import { Row, Col } from 'antd';
+// import { GrMoney } from "react-icons/gr";
+// import { GiPayMoney, GiReceiveMoney } from "react-icons/gi";
+// import { FiClock } from "react-icons/fi";
 
 function VideoView() {
   const videoForm = useRef();

@@ -1,8 +1,10 @@
-import react, { useState, useEffect } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable react/prop-types */
+import { useState, useEffect } from 'react';
 import './index.css';
-import { Row, Col, Button } from 'antd';
+import { Row, Col } from 'antd';
 import {YellowButton, WhiteButton, InActiveButton} from '../Buttons';
-import ConfrimModal from '../../components/ConfirmModal';
+import ConfrimModal from '../ConfirmModal';
 import openNotification from "../notification";
 
 function Balance(props) {
@@ -33,11 +35,11 @@ function Balance(props) {
         setTokenAction(1);
         setModalShow(true);
     }
-    const WithdrawUSDT = ()=>{
-        setSelToken(1);
-        setTokenAction(1);
-        setModalShow(true);
-    }
+    // const WithdrawUSDT = ()=>{
+    //     setSelToken(1);
+    //     setTokenAction(1);
+    //     setModalShow(true);
+    // }
     const checkNumber = value => {
         const reg = /^-?\d*(\.\d*)?$/;
         if ((!isNaN(value) && reg.test(value)) || value === '' || value === '-') {
@@ -49,11 +51,11 @@ function Balance(props) {
         if(checkNumber(e.target.value))
             setAmount(e.target.value);
     }
-    const getMyWalletAddress = () => {
-        if(localStorage.getItem('userInfo'))
-            return JSON.parse(localStorage.getItem("userInfo")).base58;
-        return null;
-    }
+    // const getMyWalletAddress = () => {
+    //     if(localStorage.getItem('userInfo'))
+    //         return JSON.parse(localStorage.getItem("userInfo")).base58;
+    //     return null;
+    // }
     const getAffiliateWalletAddress = () => {
         if(localStorage.getItem('affiliate'))
             return JSON.parse(localStorage.getItem("affiliate")).base58;
@@ -95,16 +97,14 @@ function Balance(props) {
                     </Row>
                 </Col>
             </Row>
-            
-            
         </Col>
 
 
-        <ConfrimModal title = {`${tokenAction == 0 ? 'DEPOSIT' : 'WITHDRAW'} ${selToken == 0 ? 'TRX' : 'USDT'}`} visible = {modalShow} close = {()=>setModalShow(false)}>
+        <ConfrimModal title = {`${tokenAction === 0 ? 'DEPOSIT' : 'WITHDRAW'} ${selToken === 0 ? 'TRX' : 'USDT'}`} visible = {modalShow} close = {()=>setModalShow(false)}>
             <Row>
                 <Col span={22} offset={1}>
-                    {`Available amount ${tokenAction == 0 ? (selToken == 0 ? props.myWalletBalance[0] : props.myWalletBalance[1]) : (selToken == 0 ? (props.activeWithdraw / props.tronPrice.price1).toFixed(5) : (props.activeWithdraw / props.usdtPrice.price1).toFixed(5))}`}
-                    <p>"Please ensure you have enough Energy & Bandwidth for the transaction"</p>
+                    {`Available amount ${tokenAction === 0 ? (selToken === 0 ? props.myWalletBalance[0] : props.myWalletBalance[1]) : (selToken === 0 ? (props.activeWithdraw / props.tronPrice.price1).toFixed(5) : (props.activeWithdraw / props.usdtPrice.price1).toFixed(5))}`}
+                    <p>`Please ensure you have enough Energy & Bandwidth for the transaction`</p>
                 </Col>
                 <Col span={22} offset={1}>
                     <input value={amount} placeholder={"enter amount here"}  className="text-black text-lg text-center w-full mt-8 border-gray-200 border-2 p-2"onChange={onSendAmountChange} /> 
@@ -114,13 +114,13 @@ function Balance(props) {
                 <Col span={10} offset={1}>
                     <YellowButton onClick = {async()=>{
                         let result = false ;
-                        if(tokenAction == 0 && selToken == 0){
+                        if(tokenAction === 0 && selToken === 0){
                             if(amount * props.tronPrice.price1 < 21){
-                                openNotification(4.5,"Invalid amount", 'You are supposed to deposit at least $20', false, null); 
+                                openNotification(4.5,"Invalid amount", 'You are supposed to deposit at least $20', false, null);
                                 return;
                             }
                             if(amount >= props.myWalletBalance[0]){
-                                openNotification(4.5,"Invalid amount", "You don't have enough money.", false, null); 
+                                openNotification(4.5,"Invalid amount", "You don't have enough money.", false, null);
                                 return;
                             }
 
@@ -134,27 +134,23 @@ function Balance(props) {
                                     console.log("result", result);
                                     if(trx){
                                         props.addRefferal(amount * 6 /100 * props.tronPrice.price1);
-                                        props.addNotification(`You deposited ${amount} TRX`).then(()=>setSendState(prev=>prev+1)); 
+                                        props.addNotification(`You deposited ${amount} TRX`).then(()=>setSendState(prev=>prev+1));
                                         props.addDeposit(amount * props.tronPrice.price1).then(()=>setSendState(prev=>prev+1));
-                                        
                                         localStorage.removeItem('affiliate');
                                     }
                                     else{
-                                        openNotification(4.5,"Deposit Failed", `Your attempt is failed due to some issues, Check transaction information.`, false, null); 
+                                        openNotification(4.5,"Deposit Failed", `Your attempt is failed due to some issues, Check transaction information.`, false, null);
                                     }
-                                    
                                 })
-                                
                             }
-                            else       
+                            else
                             {
                                 console.log("normal");
                                 let compareWallet = await props.checkedWallet();
-                                if(compareWallet == 0){
+                                if(compareWallet === 0){
                                     openNotification(4.5,"Invalid wallet address", `Switch your Tronlink account, your wallet address is ${JSON.parse(localStorage.getItem("userInfo")).base58}`, false, null); 
                                     return;
                                 }
-                                
                                 result = await props.depositTRX(amount);
                                 if(!result)
                                     return;
@@ -166,23 +162,18 @@ function Balance(props) {
                                         props.addDeposit(amount * props.tronPrice.price1).then(()=>setSendState(prev=>prev+1));
                                     }
                                     else{
-                                        openNotification(4.5,"Deposit Failed", `Your attempt is failed due to some issues, Check transaction information.`, false, null); 
+                                        openNotification(4.5,"Deposit Failed", `Your attempt is failed due to some issues, Check transaction information.`, false, null);
                                     }
-                                            
                                 })
                             }
-                            
-                            
-                            
-                             
-                        }   
-                        if(tokenAction == 0 && selToken == 1){
+                        }
+                        if(tokenAction === 0 && selToken === 1){
                             if(amount * props.usdtPrice.price1 < 21){
-                                openNotification(4.5,"Invalid amount", 'You are supposed to deposit at least $20', false, null); 
+                                openNotification(4.5,"Invalid amount", 'You are supposed to deposit at least $20', false, null);
                                 return;
                             }
                             if(amount > props.myWalletBalance[1]){
-                                openNotification(4.5,"Invalid amount", "You don't have enough money.", false, null); 
+                                openNotification(4.5,"Invalid amount", "You don't have enough money.", false, null);
                                 return;
                             }
                             if(JSON.parse(localStorage.getItem('affiliate'))?.wallet && Number(props.balance) <= 0){
@@ -199,15 +190,13 @@ function Balance(props) {
                                         localStorage.removeItem('affiliate');
                                     }
                                     else{
-                                        openNotification(4.5,"Deposit Failed", `Your attempt is failed due to some issues, Check transaction information.`, false, null); 
+                                        openNotification(4.5,"Deposit Failed", `Your attempt is failed due to some issues, Check transaction information.`, false, null);
                                     }
-                                            
                                 })
-                                
-                            }             
+                            }
                             else{
                                 let compareWallet = await props.checkedWallet();
-                                if(compareWallet == 0){
+                                if(compareWallet === 0){
                                     openNotification(4.5,"Invalid wallet address", `Switch your Tronlink account, your wallet address is ${JSON.parse(localStorage.getItem("userInfo")).base58}`, false, null); 
                                     return;
                                 }
@@ -222,23 +211,19 @@ function Balance(props) {
                                         props.addDeposit(amount * props.usdtPrice.price1).then(()=>setSendState(prev=>prev+1));
                                     }
                                     else{
-                                        openNotification(4.5,"Deposit Failed", `Your attempt is failed due to some issues, Check transaction information.`, false, null); 
+                                        openNotification(4.5,"Deposit Failed", `Your attempt is failed due to some issues, Check transaction information.`, false, null);
                                     }
-                                            
                                 })
-                                
-
                             }
                         }
-                            
-                        if(tokenAction == 1 && selToken == 0){
+                        if(tokenAction === 1 && selToken === 0){
                             let insuranceLock = await props.getInsuranceLock();
                             if(!insuranceLock){
                                 openNotification(4.5,"Insurance Lock", `Insurance Lock has been enabled. This means you will not be able to withdraw funds until further notice. More information on the Insurance Lock can be found on the FAQ page`, false, null)
                                 return;
                             }
                             if(amount > props.activeWithdraw / props.tronPrice.price1){
-                                openNotification(4.5,"Invalid amount", `You are not allowed to withdraw ${amount} TRX`, false, null); 
+                                openNotification(4.5,"Invalid amount", `You are not allowed to withdraw ${amount} TRX`, false, null);
                                 return;
                             }
                             result = await props.withdrawTRX(amount);
@@ -252,21 +237,18 @@ function Balance(props) {
                                     props.addWithdraw((amount * props.tronPrice.price1).toFixed(5)).then(()=>setSendState(prev=>prev+1));
                                 }
                                 else{
-                                    openNotification(4.5,"Withdraw Failed", `Your attempt is failed due to some issues, Check transaction information.`, false, null); 
+                                    openNotification(4.5,"Withdraw Failed", `Your attempt is failed due to some issues, Check transaction information.`, false, null);
                                 }
-                                        
                             })
-                            
                         }
-                            
-                        if(tokenAction == 1 && selToken == 1){
+                        if(tokenAction === 1 && selToken === 1){
                             let insuranceLock = await props.getInsuranceLock();
                             if(!insuranceLock){
                                 openNotification(4.5,"Insurance Lock", `Insurance Lock has been enabled. This means you will not be able to withdraw funds until further notice. More information on the Insurance Lock can be found on the FAQ page`, false, null)
                                 return;
                             }
                             if(amount > props.activeWithdraw / props.usdtPrice.price1){
-                                openNotification(4.5,"Invalid amount", `You are not allowed to withdraw ${amount} USDT`, false, null); 
+                                openNotification(4.5,"Invalid amount", `You are not allowed to withdraw ${amount} USDT`, false, null);
                                 return;
                             }
                             result = await props.withdrawUSDT(amount);
@@ -280,26 +262,19 @@ function Balance(props) {
                                     props.addWithdraw((amount * props.usdtPrice.price1).toFixed(5)).then(()=>setSendState(prev=>prev+1));
                                 }
                                 else{
-                                    openNotification(4.5,"Withdraw Failed", `Your attempt is failed due to some issues, Check transaction information.`, false, null); 
+                                    openNotification(4.5,"Withdraw Failed", `Your attempt is failed due to some issues, Check transaction information.`, false, null);
                                 }
-                                        
                             })
-                            
-                            
                         }
-                               
-                        setModalShow(false);  
-                        
+                        setModalShow(false);
                     }
-                    
-                    
                     }>Confirm</YellowButton>
                 </Col>
                 <Col span={10} offset={2}>
                     <WhiteButton onClick = {()=>setModalShow(false)}>Cancel</WhiteButton>
                 </Col>
             </Row>
-        </ConfrimModal>      
+        </ConfrimModal>
     </Row>
   );
 }

@@ -1,5 +1,7 @@
+/* eslint-disable array-callback-return */
+/* eslint-disable react-hooks/exhaustive-deps */
 import './index.css';
-import { Routes, Route, Link, Navigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Header from '../../components/Header';
 import VideoView from '../../components/VideoView';
 import TitleView from '../../components/TitleView';
@@ -45,7 +47,6 @@ function Home() {
   const gotoplan = ()=>plan.current.scrollIntoView({ behavior: 'smooth' });
 
   useEffect(()=>{
-    
     if(routerParams.wallet){
       localStorage.removeItem("affiliate");
       localStorage.setItem("affiliate", JSON.stringify({wallet : routerParams.wallet, referralid : routerParams.userid, base58 : routerParams.base58}))
@@ -63,7 +64,7 @@ function Home() {
     if(data.allWithdraw.length > 0)
     {
       let oldWithdraw = [];
-      data.allWithdraw.map(index=>{
+      data.allWithdraw.map((index)=>{
         let name = data.allInvestors.filter(item=>item.id === index.userid)[0].firstname;
         oldWithdraw.push({
           name : name,
@@ -77,7 +78,7 @@ function Home() {
     if(data.allDeposit.length > 0)
     {
       let oldDeposit = [];
-      data.allDeposit.map(index=>{
+      data.allDeposit.map((index)=>{
         let name = data.allInvestors.filter(item=>item.id === index.userid)[0].firstname;
         oldDeposit.push({
           name : name,
@@ -102,10 +103,8 @@ function Home() {
           profit : data.allProfits[i],
         })
       }
-      
       setTotalBalance(oldTotalBalance);
       setTotalWithdrawns(oldTotalWithdrawns);
-      
       ///////////sortByBalance////////////////
       console.log(investorInfo);
       if(investorInfo.length > 0){
@@ -113,7 +112,6 @@ function Home() {
         let sortedArray1 = investorInfo.sort(sortFn1);
         setBalance(sortedArray1.slice(0,10));
       }
-      
 
       ///////////sortByProfit////////////////
       if(data.allReferral.length > 0){
@@ -122,8 +120,6 @@ function Home() {
         console.log("referrals", sortedArray2);
         setRefferal(sortedArray2.slice(0,10));
       }
-      
-      
     }
   },[data.loading])
 
@@ -141,21 +137,18 @@ function Home() {
           <Howwork/>
           <HelpService/>
           <CoinSet tron = {data.tronPrice} usdt = {data.usdtPrice}/>
-          <LiveData 
-            withdraw = {withdraw} 
-            deposit = {deposit} 
+          <LiveData
+            withdraw = {withdraw}
+            deposit = {deposit}
             balance= {balance}
             refferal = {refferal}
             totalInvestors = {totalInvestors}
             totalBalance = {totalBalance}
             totalWithdrawns = {totalWithdrawns}/>
           <Plan plan = {plan}/>
-          
-          
           <Footer/>
         </>
-    }
-      
+      }
     </>
   );
 }

@@ -1,6 +1,6 @@
-import react from 'react';
+/* eslint-disable react/prop-types */
 import './index.css';
-import { Row, Col, Button } from 'antd';
+import { Row, Col } from 'antd';
 
 function CoinSet(props) {
   return (
@@ -15,9 +15,8 @@ function CoinSet(props) {
                             Number(props.tron.high1) >=0 ?
                                 <span className="p-1 text-sm bg-green-500 rounded-lg">{`+${props.tron.high1||2.99}%`}</span>
                             :
-                                <span className="p-1 text-sm bg-red-500 rounded-lg">{`${props.tron.high1||2.99}%`}</span> 
+                                <span className="p-1 text-sm bg-red-500 rounded-lg">{`${props.tron.high1||2.99}%`}</span>
                         }
-                        
                     </p>
                     <p className='text-gray-400 text-xs mt-1'>
                         {`${props.tron.price2||0.000001659} BTC`}
@@ -27,7 +26,6 @@ function CoinSet(props) {
                             :
                                 <span className='text-red-300 ml-2'>{`${props.tron.high2||0.88}%`}</span>
                         }
-                        
                     </p>
                     <p className='text-gray-400 text-xs mt-1'>
                         {`${props.tron.price3||0.00002055} ETH`}
@@ -37,7 +35,6 @@ function CoinSet(props) {
                             :
                                 <span className='text-red-300 ml-2'>{`${props.tron.high3||0.78}%`}</span>
                         }
-                        
                     </p>
                 </Col>
                 <Col  className='mt-8 p-4 border-2 border-white bg-neutral-900 mx-6 rounded-lg'>
@@ -48,9 +45,8 @@ function CoinSet(props) {
                             Number(props.usdt.high1) >=0 ?
                                 <span className="p-1 text-sm bg-green-500 rounded-lg">{`+${props.usdt.high1||2.99}%`}</span>
                             :
-                                <span className="p-1 text-sm bg-red-500 rounded-lg">{`${props.usdt.high1||2.99}%`}</span> 
+                                <span className="p-1 text-sm bg-red-500 rounded-lg">{`${props.usdt.high1||2.99}%`}</span>
                         }
-                        
                     </p>
                     <p className='text-gray-400 text-xs mt-1'>
                         {`${props.usdt.price2||0.000001659} BTC`}
@@ -60,7 +56,6 @@ function CoinSet(props) {
                             :
                                 <span className='text-red-300 ml-2'>{`${props.usdt.high2||0.88}%`}</span>
                         }
-                        
                     </p>
                     <p className='text-gray-400 text-xs mt-1'>
                         {`${props.usdt.price3||0.00002055} ETH`}
@@ -70,12 +65,9 @@ function CoinSet(props) {
                             :
                                 <span className='text-red-300 ml-2'>{`${props.usdt.high3||0.78}%`}</span>
                         }
-                        
                     </p>
                 </Col>
             </Row>
-            
-            
         </Col>
     </Row>
   );

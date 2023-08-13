@@ -1,6 +1,5 @@
-import react from 'react';
-import { Row, Col, Button } from 'antd';
-import {YellowButton, WhiteButton} from '../Buttons';
+/* eslint-disable react/prop-types */
+import { Row, Col } from 'antd';
 import { GrMoney } from "react-icons/gr";
 import { GiPayMoney, GiReceiveMoney } from "react-icons/gi";
 import { FiClock } from "react-icons/fi";

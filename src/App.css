@@ -2,6 +2,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 body{
   margin: 0px;
   overflow-x: hidden;
@@ -21,10 +22,10 @@ a{
 ::-webkit-scrollbar-track {
   box-shadow:transparent;
 }
- 
+
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #fde400; 
+  background: #fde400;
   border-radius: 10px;
 }
 .bg-neutral-900{

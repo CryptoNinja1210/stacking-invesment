@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import './index.css';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
@@ -5,7 +6,7 @@ import NavBar from '../../components/NavBar';
 import NotificationBox from '../../components/NotificationBox';
 import Balance from '../../components/Balance';
 import AccountStatistic from '../../components/AccountStatistic';
-import { Routes, Route, Link, Navigate, useParams } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { useState, useEffect, useContext } from 'react';
 import {MyInfoContext} from '../../Provider/myInfoProvider';
 import {BlockchainContext} from '../../Provider/blockchainProvider';
@@ -17,10 +18,6 @@ import CustomParticles from '../../components/CustomParticles';
 import Loading from '../../components/Loading';
 import openNotification from '../../components/notification';
 
-
-
-
-
 function Main() {
   const [goback, setGoback] = useState(false);
   const [userInfo, setUserInfo] = useState({})
@@ -28,26 +25,21 @@ function Main() {
   const data = useContext(MyInfoContext);
   const blockchainData = useContext(BlockchainContext);
 
-
-  
-
   useEffect(()=>{
-    
     if(!localStorage.getItem("userInfo") && !localStorage.getItem("jwtToken"))
       setGoback(true);
     else
       setUserInfo(JSON.parse(localStorage.getItem("userInfo")));
-    
     data.checkedWallet().then((result)=>{
-      if(result == 0)
+      if(result === 0)
         openNotification(null,"Invalid wallet address", `Switch your TronLink account, your wallet address is ${JSON.parse(localStorage.getItem("userInfo")).base58}`, false, null);
-      if(result == -1)
-        openNotification(null,"TronLink not detected", `please connect TronLink`, false, null); 
+      if(result === -1)
+        openNotification(null,"TronLink not detected", `please connect TronLink`, false, null);
     });
 
     data.setRefresh(true);
   },[])
-  
+
   useEffect(()=>{
     if(data.error){
       openNotification(1.5,"Failed", "you are not permitted! please login again.", false, ()=>{
@@ -55,8 +47,8 @@ function Main() {
         localStorage.removeItem("jwtToken");
         setGoback(true);
         data.setError(false);
-      })   
-    }  
+      })
+    }
   },[data.error])
 
   const refresh = ()=>{
@@ -76,16 +68,14 @@ function Main() {
         <CustomParticles/>
         <Header/>
         <NavBar setStep = {setStep}/>
-        
-        
         {
-          step == 0?
+          step === 0?
           <>
-            <NotificationBox 
+            <NotificationBox
               userName = {`${userInfo.firstname} ${userInfo.lastname}`}
               message={data.myNotification[data.myNotification.length-1].message}/>
-            <Balance 
-              balance = {data.myBalance} 
+            <Balance
+              balance = {data.myBalance}
               activeWithdraw = {data.myActiveBalance}
               myWalletBalance = {data.walletBalance}
               depositTRX = {data.depositTRX}
@@ -106,28 +96,24 @@ function Main() {
               addRefferal = {data.addRefferal}
               getInsuranceLock = {data.getInsuranceLock}
               getTransactionInfo = {data.getTransactionInfo}/>
-            <AccountStatistic 
-              balance = {data.myBalance} 
-              profit = {data.myProfit} 
+            <AccountStatistic
+              balance = {data.myBalance}
+              profit = {data.myProfit}
               activeWithdraw = {data.myActiveBalance}
               withdrawDate = {data.myWithdrawDate[data.myWithdrawDate.length-1]}
               depositDate = {data.myDepositDate[data.myDepositDate.length-1]}/>
           </>
-          :step == 1?
+          :step === 1?
           <TransactionView mytransactions = {data.myTransaction}/>
-          :step == 2 ?
+          :step === 2 ?
           <ProfileView setRefresh = {()=>{data.setRefresh(true);setStep(0)}}/>
-          :step == 3 ?
+          :step === 3 ?
           <AffiliateView />
           :<BonusView/>
-
-
         }
-        
         <Footer/>
       </>
     }
-      
     </>
   );
 }

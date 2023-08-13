@@ -1,12 +1,13 @@
 import {Config, devConfig} from '../constant/blockchain';
-const TronWeb = require('tronweb');
+// const TronWeb = require('tronweb');
+// import TronWeb from 'tronWeb';
 const config = Config;
 
 const privateKey = '01';
-        const tronWeb = new TronWeb({
-            privateKey: privateKey,
-            fullHost: config.fullHost
-        });
+        // const tronWeb = new TronWeb({
+        //     privateKey: privateKey,
+        //     fullHost: config.fullHost
+        // });
 
 export function getTronWeb() {
     
@@ -27,9 +28,9 @@ export const walletCompare = (wallet1, wallet2) => {
 }
 export const getAllWallets = async()=>{
     try{
-        let contract = await tronWeb.contract().at(config.contract);
-        let balances = await contract.methods.getInvestors().call();
-        return balances;
+        // let contract = await tronWeb.contract().at(config.contract);
+        // let balances = await contract.methods.getInvestors().call();
+        // return balances;
 
     }catch(errer){
         console.log(errer);
@@ -40,9 +41,9 @@ export const getAllWallets = async()=>{
 export const getAllBalanceOf = async()=>{
  
     try{
-        let contract = await tronWeb.contract().at(config.contract);
-        let balances = await contract.methods.getAllBalanceOf().call();
-        return balances;
+        // let contract = await tronWeb.contract().at(config.contract);
+        // let balances = await contract.methods.getAllBalanceOf().call();
+        // return balances;
 
     }catch(errer){
         console.log(errer);
@@ -54,9 +55,9 @@ export const getAllBalanceOf = async()=>{
 export const getAllProfit = async()=>{////////////
 
     try{
-        let contract = await tronWeb.contract().at(config.contract);
-        let balances = await contract.methods.getAllProfit().call();
-        return balances;
+        // let contract = await tronWeb.contract().at(config.contract);
+        // let balances = await contract.methods.getAllProfit().call();
+        // return balances;
 
     }catch(errer){
         return [];
@@ -66,9 +67,9 @@ export const getAllProfit = async()=>{////////////
 export const getAllActiveWithDraw = async()=>{////////////
 
     try{
-        let contract = await tronWeb.contract().at(config.contract);
-        let balances = await contract.methods.getAllActiveWithDraw().call();
-        return balances;
+        // let contract = await tronWeb.contract().at(config.contract);
+        // let balances = await contract.methods.getAllActiveWithDraw().call();
+        // return balances;
 
     }catch(errer){
         return [];
@@ -129,9 +130,9 @@ export const getMyWalletUSDT = async()=>{
 }
 export const getInsuranceLock = async ()=>{
     try{
-        let contract = await tronWeb.contract().at(config.contract);
-        let balances = await contract.methods.getInsuranceLock().call();
-        return balances;
+        // let contract = await tronWeb.contract().at(config.contract);
+        // let balances = await contract.methods.getInsuranceLock().call();
+        // return balances;
 
     }catch(errer){
         return false;
@@ -260,12 +261,12 @@ export const withdrawUSDT = async(amount)=>{
 export const getTransactionInfo = async (trx) => {
     try{
         while(1){
-            let transaction = await tronWeb.trx.getUnconfirmedTransactionInfo(trx);
-            if(transaction.receipt)
-                if(transaction.receipt.result == 'SUCCESS')
-                    return true;
-                else
-                    return false;
+            // let transaction = await tronWeb.trx.getUnconfirmedTransactionInfo(trx);
+            // if(transaction.receipt)
+            //     if(transaction.receipt.result == 'SUCCESS')
+            //         return true;
+            //     else
+            //         return false;
         }
         return false;
     }

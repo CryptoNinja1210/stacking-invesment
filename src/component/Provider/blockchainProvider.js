@@ -1,7 +1,9 @@
-import React, { useState, useEffect,useCallback } from 'react';
+/* eslint-disable react/prop-types */
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import {getAllWallets, getAllBalanceOf, getAllProfit, getAllActiveWithDraw} from '../../utils/tronBlockchain';
-import {SERVER_URL} from '../../constant/env';
+import {getAllWallets, getAllBalanceOf, getAllProfit, getAllActiveWithDraw} from '../../utils/tronBlockchain.js';
+import {SERVER_URL} from '../../constant/env.js';
 import openNotification from "../components/notification";
 
 const BlockchainContextTemplate = {
@@ -17,7 +19,7 @@ const BlockchainContextTemplate = {
     loading : Boolean,
     tronPrice : {},
     usdtPrice : {},
-    setRefresh : (value)=>{},
+    setRefresh : ()=>{},
 }
 const BlockchainContext = React.createContext(BlockchainContextTemplate);
 const initTrxPrice = {
@@ -57,73 +59,70 @@ function BlockchainProvider(props) {
   const [usdtPrice, setUsdtPrice] = useState(initUSDTPrice);
   const [downloadState, setDownloadState] = useState(0);
 
- 
   const getTokenPrice = (tokenId, setToken)=>{
     return axios.get(`https://api.coingecko.com/api/v3/coins/${tokenId}?tickers=false&community_data=false&developer_data=false&sparkline=false`)
-            .then(response=>{
-              let body = response.data;
-                let oldToken = {
-                  name : body.name,
-                  symbol : body.symbol,
-                  price1 : body.market_data.current_price.usd,
-                  high1 : body.market_data.price_change_percentage_24h_in_currency.usd,
-                  price2 : body.market_data.current_price.btc,
-                  high2 : body.market_data.price_change_percentage_24h_in_currency.btc,
-                  price3 : body.market_data.current_price.eth,
-                  high3 : body.market_data.price_change_percentage_24h_in_currency.eth,
-                }
-                setToken(oldToken);
-              })
+      .then(response=>{
+        let body = response.data;
+          let oldToken = {
+            name : body.name,
+            symbol : body.symbol,
+            price1 : body.market_data.current_price.usd,
+            high1 : body.market_data.price_change_percentage_24h_in_currency.usd,
+            price2 : body.market_data.current_price.btc,
+            high2 : body.market_data.price_change_percentage_24h_in_currency.btc,
+            price3 : body.market_data.current_price.eth,
+            high3 : body.market_data.price_change_percentage_24h_in_currency.eth,
+          }
+          setToken(oldToken);
+        })
   }
   const getAllWithdrawInfo = ()=>{
     return axios.get(SERVER_URL+"withdrawinfo/latest")
-            .then(response=>{
-                if(response.data.response){
-                  
-                    setWithdraw(response.data.data.users);
-                } 
-                else{
-                  openNotification(4.5,'Fail!',response.data.message,false,null)
-                }
-              })
+      .then(response=>{
+          if(response.data.response){
+            setWithdraw(response.data.data.users);
+          }
+          else{
+            openNotification(4.5,'Fail!',response.data.message,false,null)
+          }
+        })
   }
   const getAllUsers = ()=>{
     return axios.get(SERVER_URL+"users")
-            .then(response=>{
-                if(response.data.response){
-                  
-                  setInvestors(response.data.data);
-                } 
-                else{
-                  openNotification(4.5,'Fail!',response.data.message,false,null)
-                }
-              })
+      .then(response=>{
+          if(response.data.response){
+            setInvestors(response.data.data);
+          }
+          else{
+            openNotification(4.5,'Fail!',response.data.message,false,null)
+          }
+        })
   }
   const getAllDepositInfo = ()=>{
     return axios.get(SERVER_URL+"depositinfo/latest")
-            .then(response=>{
-                if(response.data.response){
-                    setDeposit(response.data.data.users);
-                }
-                else{
-                openNotification(4.5,'Fail!',response.data.message,false,null)
-                }
-            });
+      .then(response=>{
+          if(response.data.response){
+              setDeposit(response.data.data.users);
+          }
+          else{
+          openNotification(4.5,'Fail!',response.data.message,false,null)
+          }
+      });
   }
   const getAllReferral = ()=>{
     return axios.get(SERVER_URL+"referral/latest")
-            .then(response=>{
-                if(response.data.response){
-                  setReferral(response.data.data);
-                }
-                else{
-                openNotification(4.5,'Fail!',response.data.message,false,null)
-                }
-            });
+      .then(response=>{
+          if(response.data.response){
+            setReferral(response.data.data);
+          }
+          else{
+          openNotification(4.5,'Fail!',response.data.message,false,null)
+          }
+      });
   }
   useEffect(()=>{
     initeData();
-  },[refresh,window.tronWeb])
+  },[refresh, window.tronWeb])
 
   const initeData = async()=>{
     getTokenPrice('tron', setTronPrice);
@@ -161,34 +160,32 @@ function BlockchainProvider(props) {
     // setWallets(allWallets);
     // setProfits(oldAllProfit);
     setRefresh(false);
-    
   }
   useEffect(()=>{
-    if(downloadState == 4){
+    if(downloadState === 4){
       setLoading(false);
       setDownloadState(0);
     }
   },[downloadState])
   return(
-          <BlockchainContext.Provider value={{
-            allInvestors,
-            wallets,
-            allBalances,
-            allProfits,
-            allWithdraw,
-            allDeposit,
-            allActiveWithDraw,
-            allReferral,
-            refresh,
-            setRefresh,
-            loading,
-            tronPrice,
-            usdtPrice,
-          }}>
-            {props.children}
-          </BlockchainContext.Provider>
-
-    )
+    <BlockchainContext.Provider value={{
+      allInvestors,
+      wallets,
+      allBalances,
+      allProfits,
+      allWithdraw,
+      allDeposit,
+      allActiveWithDraw,
+      allReferral,
+      refresh,
+      setRefresh,
+      loading,
+      tronPrice,
+      usdtPrice,
+    }}>
+      {props.children}
+    </BlockchainContext.Provider>
+  )
 }
 
 export {BlockchainContext};

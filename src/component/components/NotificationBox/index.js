@@ -1,12 +1,14 @@
-import react, { useEffect } from 'react';
+/* eslint-disable react/prop-types */
+import { useEffect } from 'react';
 import './index.css';
-import { Row, Col, Button } from 'antd';
+import { Row, Col } from 'antd';
 import { AiOutlineMessage} from "react-icons/ai";
 
 
 function NotificationBox(props) {
     useEffect(()=>{
         console.log(props.message)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
   return (
     <Row className='mt-16'>

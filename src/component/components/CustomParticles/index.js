@@ -1,7 +1,6 @@
 import Particles from "react-tsparticles";
 function CustomParticles() {
   return (
-    
       <Particles
       options={{
         fullScreen: {
@@ -12,10 +11,8 @@ function CustomParticles() {
           detectsOn: "window",
           events: {
             onClick: { enable: true, mode: "repulse" },
-    
             resize: true
           },
-          
         },
         emitters: {
           position: {
